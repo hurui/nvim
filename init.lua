@@ -76,7 +76,7 @@ require("lazy").setup({
 		{
 			"mason-org/mason-lspconfig.nvim",
 			opts = {
-				ensure_installed = { "rust_analyzer", "tailwindcss", "ts_ls", "harper_ls", "eslint" },
+				ensure_installed = { "rust_analyzer", "tailwindcss", "ts_ls", "harper_ls", "eslint", "mdx_analyzer" },
 				automatic_enable = {
 					exclude = { "rust_analyzer" },
 				},
@@ -180,3 +180,12 @@ require("lazy").setup({
 })
 
 vim.keymap.set({ "n", "i", "v" }, "<leader>w", "<cmd>w<CR><Esc>", { noremap = true })
+
+vim.filetype.add({
+	extension = {
+		mdx = "mdx",
+	},
+})
+
+-- Register markdown parser for mdx filetype
+vim.treesitter.language.register("markdown", "mdx")
