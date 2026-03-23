@@ -1,11 +1,12 @@
 # Neovim 最小 TypeScript/Tailwind/OXC 配置
 
-这是一套基于 Neovim `0.11.5+` 新 LSP 接口的极简配置，目标是只依赖 `nvim-lspconfig`，完成 TypeScript、Tailwind 和 OXC 的日常开发闭环。
+这是一套基于 Neovim `0.11.5+` 新 LSP 接口的极简配置，目标是只依赖少量运行时插件，完成 TypeScript、Tailwind、OXC 和目录树浏览的日常开发闭环。
 
 ## 特性
 
 - 使用 `vim.lsp.config()`、`vim.lsp.enable()`、`vim.lsp.completion.enable()`
 - 不使用 `lazy.nvim`、`mason.nvim`、`nvim-cmp`、`null-ls`
+- 使用 `neo-tree.nvim` 作为左侧文件树
 - `ts_ls` 负责 TypeScript/JavaScript 语义能力
 - `tailwindcss` 负责 Tailwind 类名补全、hover、诊断
 - `oxlint` 负责 lint 诊断和 quick fix
@@ -16,22 +17,27 @@
 
 - Neovim `0.11.5+`
 - 已安装 Node 环境
-- 可访问 GitHub 以安装 `nvim-lspconfig`
+- 可访问 GitHub 以安装运行时插件
 
 ## 安装
 
-### 1. 安装 `nvim-lspconfig`
+### 1. 安装运行时插件
 
 在本配置目录执行：
 
 ```sh
 ./scripts/install_nvim_lspconfig.sh
+./scripts/install_neo_tree.sh
 ```
 
 安装后，插件会位于：
 
 ```text
 pack/vendor/start/nvim-lspconfig
+pack/vendor/start/plenary.nvim
+pack/vendor/start/nui.nvim
+pack/vendor/start/nvim-web-devicons
+pack/vendor/start/neo-tree.nvim
 ```
 
 ### 2. 安装全局语言服务器
@@ -86,6 +92,8 @@ LSP 会按项目根自动附着。当前默认支持的主要场景：
 - `[d` 跳到上一个诊断
 - `]d` 跳到下一个诊断
 - `<leader>e` 打开当前行诊断浮窗
+- `-` 切换左侧 `neo-tree`
+- `<leader>o` 切换左侧 `neo-tree`
 
 ## 默认行为
 
@@ -101,6 +109,7 @@ LSP 会按项目根自动附着。当前默认支持的主要场景：
 init.lua
 lua/config/options.lua
 lua/config/keymaps.lua
+lua/config/neo_tree.lua
 lua/config/lsp.lua
 lua/config/lsp_util.lua
 after/lsp/ts_ls.lua
@@ -108,6 +117,7 @@ after/lsp/tailwindcss.lua
 lua/lsp/oxlint.lua
 lua/lsp/oxfmt.lua
 scripts/install_nvim_lspconfig.sh
+scripts/install_neo_tree.sh
 ```
 
 ## 排查
